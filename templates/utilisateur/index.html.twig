@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index{% endblock %}
+
+{% block body %}
+    <h1 style="margin-top : 30px; margin-bottom : 20px">Utilisateur index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.id }}</td>
+                <td>{{ utilisateur.email }}</td>
+                <td>
+                 {% for unRole in utilisateur.roles %}
+                    {% if unRole == "ROLE_USER"%}
+                        Utilisateur
+                    {% elseif unRole == "ROLE_EDITOR"%}
+                        Editeur
+                    {% else %}
+                        Administrateur
+                    {% endif %}
+                 {% endfor %}
+                </td>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
+                <td>
+                    <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
+                    <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun utilisateur </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a type='button' class='btn btn-primary' href="{{ path('utilisateur_new') }}">Ajouter un nouveau utilisateur</a>
+{% endblock %}
