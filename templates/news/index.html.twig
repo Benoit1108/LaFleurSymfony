@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}News index
+{% endblock %}
+
+{% block body %}
+	<h1 style="margin-top : 30px; margin-bottom : 20px">News index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Titre</th>
+				<th>Contenu</th>
+				<th>Date news</th>
+				<th>Image</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for news in news %}
+				<tr>
+					<td>{{ news.id }}</td>
+					<td>{{ news.titre }}</td>
+					<td>{{ news.contenu }}</td>
+					<td>{{ news.datenews ? news.datenews|date('Y-m-d') : '' }}</td>
+					<td>
+						<img style="width:180px; height:80px" src="{{ asset('images/Divers/' ~ news.image) }}">
+					</td>
+					<td>
+						<a href="{{ path('news_show', {'id': news.id}) }}">Voir </a>
+						<a href="{{ path('news_edit', {'id': news.id}) }}">Editer</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="6">Aucune news</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a type='button' class='btn btn-primary' href="{{ path('news_new') }}">Ajouter une nouvelle news</a>
+{% endblock %}

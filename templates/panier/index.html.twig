@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier
+{% endblock %}
+
+{% block body %}
+
+	{% if lesfleurs|length != 0 %}
+
+		<h2 style="margin-top: 50px; margin-bottom: 20px">Votre panier</h2>
+
+		<table class="table" style="margin-top: 15px;">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Image</th>
+					<th scope="col">Référence</th>
+					<th scope="col">Désignation</th>
+					<th scope="col">Prix</th>
+					<th scope="col">Quantite</th>
+					<th scope="col">Montant</th>
+					<th scope="col">Catégorie</th>
+					<th scope="col">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for unProduit in lesfleurs %}
+
+					<tr>
+						<td><img class='card-img-top' src="{{ asset('/Images/Fleurs/' ~ unProduit.fleur.photo) }}" alt=''></td>
+						<td>{{unProduit.fleur.id}}</td>
+						<td>{{unProduit.fleur.designation}}</td>
+						<td>{{unProduit.fleur.prix}}
+							€</td>
+						<td>{{unProduit.qte}}</td>
+						{% set montant =  unProduit.fleur.prix * unProduit.qte  %}
+
+						<td>{{ montant }}
+							€</td>
+						<td>{{unProduit.fleur.uneCategorie.libelle}}</td>
+						<td>
+							<div class="column">
+								<a style=" font-size:18px" type='button' class='btn btn-dark' href="{{ path('plus_panier', {'id': unProduit.fleur.id})}}">+</a>
+								<a style=" font-size:18px; width:39px" type='button' class='btn btn-dark' href="{{ path('less_panier', {'id': unProduit.fleur.id})}}">-</a>
+								<a type='button' class='btn btn-danger' href="{{ path('remove_panier', {'id': unProduit.fleur.id})}}">Supprimer</a>
+							</div>
+
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+			<tfoot>
+
+				{% set montantTot = 0 %}
+
+				{% for unProduit in lesfleurs %}
+
+
+					{% set montant = ( unProduit.fleur.prix * unProduit.qte ) %}
+
+					{% set montantTot = montantTot + montant %}
+				{% endfor %}
+				<tr>
+					<td>Total de la commande :</td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>{{ montantTot }}
+						€</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tfoot>
+		</table>
+
+		<a type='button' class='btn btn-primary' href="{{ path('commande_add') }}">Valider la commande</a>
+		<a type='button' class='btn btn-danger' href="{{ path('vider_panier') }}">Supprimer le panier</a>
+	
+	{% else %}
+
+		<h2 style="margin-top: 50px; margin-bottom: 20px">Votre panier est vide !</h2>
+
+		<div align="center" style="margin-top:50px; margin-bottom:25px">
+			<img src=" {{asset('Images/Divers/cartEmpty.png')}}">
+		</div>
+	{% endif %}
+
+{% endblock %}

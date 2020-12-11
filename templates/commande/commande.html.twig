@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes
+{% endblock %}
+
+{% block body %}
+
+{% if is_granted("ROLE_ADMIN") %}
+
+    <h1 style="margin-top:40px; margin-bottom:40px">Toutes les commandes</h1>
+
+{% else %}
+
+    <h1 style="margin-top:20px; margin-bottom:20px">Vos commandes</h1>
+
+{% endif %}
+
+	<table class="table" style="margin-top: 15px;">
+		<thead class="thead-dark">
+			<tr>
+				<th scope="col">Voir</th>
+				<th scope="col">Numéro de la commande</th>
+				<th scope="col">Date</th>
+                {% if is_granted("ROLE_ADMIN") %}
+                    <th scope="col">utilisateur</th>
+                {% endif %}
+			</tr>
+		</thead>
+		<tbody>
+			{% for uneCommande in commande %}
+				<tr>
+					<td><a type='button' class='btn btn-secondary' href="#">Voir</a></td>
+					<td>{{uneCommande.id}}</td>
+					<td>{{uneCommande.date ? uneCommande.date|date('Y-m-d') : ''}}</td>
+                    <td>
+                    {% if is_granted("ROLE_ADMIN") %}
+                        {{uneCommande.unUtilisateur.prenom ~ " " ~ uneCommande.unUtilisateur.nom}}
+                    {% endif %}
+                    </td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Aucun utilisateur
+					</td>
+				</tr>
+		{% endfor %}
+	</tbody>
+</table>{% endblock %}

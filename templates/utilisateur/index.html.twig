@@ -9,16 +9,18 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
                 <th>Nom</th>
                 <th>Prenom</th>
+                <th>Email</th>
+                <th>Roles</th>
                 <th>actions</th>
             </tr>
         </thead>
         <tbody>
         {% for utilisateur in utilisateurs %}
             <tr>
+                <td>{{ utilisateur.nom }}</td>
+                <td>{{ utilisateur.prenom }}</td>
                 <td>{{ utilisateur.id }}</td>
                 <td>{{ utilisateur.email }}</td>
                 <td>
@@ -32,8 +34,6 @@
                     {% endif %}
                  {% endfor %}
                 </td>
-                <td>{{ utilisateur.nom }}</td>
-                <td>{{ utilisateur.prenom }}</td>
                 <td>
                     <a href="{{ path('utilisateur_show', {'id': utilisateur.id}) }}">Voir</a>
                     <a href="{{ path('utilisateur_edit', {'id': utilisateur.id}) }}">Editer</a>

@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateur index
+{% endblock %}
+
+{% block body %}
+	<h1 style="margin-top : 30px; margin-bottom : 20px">Utilisateur index</h1>
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Categorie</th>
+				<th>Designation</th>
+				<th>Prix</th>
+				<th>Photo</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for fleur in fleurs %}
+				<tr>
+					<td>{{ fleur.id }}</td>
+					<td>{{ fleur.uneCategorie.libelle }}</td>
+					<td>{{ fleur.designation }}</td>
+					<td>{{ fleur.prix }}</td>
+					<td>
+                        <img style="width:200px; height:120px" src="{{ asset('images/Fleurs/' ~ fleur.photo) }}">
+                    </td>
+					<td>
+						<a href="{{ path('fleur_show', {'id': fleur.id}) }}">Voir</a>
+						<a href="{{ path('fleur_edit', {'id': fleur.id}) }}">Editer</a>
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="7">Aucun utilisateur
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<a type='button' class='btn btn-primary' href="{{ path('fleur_new') }}">Ajouter une nouvelle fleur</a>
+{% endblock %}
+

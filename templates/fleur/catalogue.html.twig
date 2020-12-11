@@ -9,8 +9,8 @@
 			<div class="col-lg-12">
 				<h1 class="my-4">Catalogue</h1>
 				<div class="list-group">
-                
-                    <a href='{{path('fleur') }} ' class='list-group-item'>Toutes</a>
+
+					<a href='{{path('fleur') }} ' class='list-group-item'>Toutes</a>
 
 					{% for unecateg in lesCategories %}
 
@@ -22,14 +22,18 @@
 		</div>
 		<!-- /.col-lg-3 -->
 		<div class="col-lg-9">
-                <div class='alert alert-success alert-dismissible fade show'> 
-                    Votre produit a été ajouté au panier  
-                    <button type='button' class='close' data-dismiss='alert' aria-label='Fermer'>
-                        <span aria-hidden='true'>&times;</span>
-                    </button>
-                </div>
+			{% for message in app.flashes('panier') %}
+
+				<div class="alert alert-success alert-dismissible fade show" role="alert">
+					{{ message }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endfor %}
+			
 			<div class="row">
-            
+
 				{% for unefleur in lesFleurs %}
 
 					<div class='col-lg-4 col-md-6 mb-3' style='margin-top:40px;'>
@@ -46,7 +50,7 @@
 									€</h5>
 							</div>
 							<div class='card-footer'>
-								<a href='index.php?page=panier&a=ajoutPanier&ref=$fleurs->RefFl' class='btn btn-success'>
+								<a href="{{ path('add_panier', {'id': unefleur.id})}}" class='btn btn-success'>
 									<i class='fas fa-cart-plus'></i>
 									Ajouter</a>
 							</div>

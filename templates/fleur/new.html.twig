@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle FLeur
+{% endblock %}
+
+{% block body %}
+	<h1 style="margin-top:20px">Crée une nouvelle Fleur</h1>
+
+	{{ include('fleur/_form.html.twig') }}
+
+	<a class="btn btn-info" style="margin-top:10px" href="{{ path('fleur_index') }}">Retour</a>
+{% endblock %}
+

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fleur
+{% endblock %}
+
+{% block body %}
+	<h1 style="margin-top:20px">Fleur</h1>
+
+	<table class="table">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ fleur.id }}</td>
+			</tr>
+			<tr>
+				<th>Catégorie</th>
+				<td>{{ fleur.uneCategorie.libelle }}</td>
+			</tr>
+			<tr>
+				<th>Designation</th>
+				<td>{{ fleur.designation}}</td>
+			</tr>
+			<tr>
+				<th>Prix</th>
+				<td>{{ fleur.prix }}</td>
+			</tr>
+			<tr>
+				<th>Photo</th>
+				<td>
+					<img style="width:200px; height:120px" src="{{ asset('images/Fleurs/' ~ fleur.photo) }}">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<a class="btn btn-info" style="margin-right: 10px" href="{{ path('fleur_index') }}">Retour</a>
+
+	<a class="btn btn-warning" href="{{ path('fleur_edit', {'id': fleur.id}) }}">Editer</a>
+
+	{{ include('fleur/_delete_form.html.twig') }}
+{% endblock %}
+

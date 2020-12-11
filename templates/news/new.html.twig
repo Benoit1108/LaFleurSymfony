@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouvelle News
+{% endblock %}
+
+{% block body %}
+	<h1 style="margin-top:20px">Crée une nouvelle news</h1>
+
+	{{ include('news/_form.html.twig') }}
+
+	<a class="btn btn-info" style="margin-top:10px" href="{{ path('news_index') }}">Retour</a>
+{% endblock %}
