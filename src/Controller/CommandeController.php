@@ -21,18 +21,25 @@ class CommandeController extends AbstractController
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         if ($this->isGranted('ROLE_ADMIN')) {
-
             $commande = $repoCommande->findAll();
-
-        } 
-        else 
-        {
+        } else {
             $commande = $repoCommande->findByUtilisateur(
                 $this->getUser()->getId()
             );
         }
 
         return $this->render('commande/commande.html.twig', [
+            'commande' => $commande,
+        ]);
+    }
+    /**
+     * @Route("/commande/show", name="show_commande")
+     */
+    public function show(CommandeRepository $repoCommande, $id): Response
+    {
+        $uneCde = $repoCommande->find($id);
+
+        return $this->render('commande/showCommande.html.twig', [
             'commande' => $commande,
         ]);
     }
