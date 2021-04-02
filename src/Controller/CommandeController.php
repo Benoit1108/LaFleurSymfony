@@ -10,6 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use App\Repository\FleurRepository;
 use App\Repository\CommandeRepository;
+use App\Repository\LigneCommandeFleurRepository;
 
 class CommandeController extends AbstractController
 {
@@ -33,11 +34,11 @@ class CommandeController extends AbstractController
         ]);
     }
     /**
-     * @Route("/commande/show", name="show_commande")
+     * @Route("/commande/show{id}", name="show_commande", methods={"GET"})
      */
     public function show(CommandeRepository $repoCommande, $id): Response
     {
-        $uneCde = $repoCommande->find($id);
+        $commande = $repoCommande->find($id);
 
         return $this->render('commande/showCommande.html.twig', [
             'commande' => $commande,

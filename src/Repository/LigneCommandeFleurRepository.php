@@ -22,19 +22,19 @@ class LigneCommandeFleurRepository extends ServiceEntityRepository
     // /**
     //  * @return LigneCommandeFleur[] Returns an array of LigneCommandeFleur objects
     //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function findByCommandeId($id)
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
+        return $this->createQueryBuilder('lc')
+            ->andWhere('lc.une_commande_id= :id')
+            ->setParameter('id', $id)
+            ->orderBy('lc.id', 'ASC')
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
+    
 
     /*
     public function findOneBySomeField($value): ?LigneCommandeFleur

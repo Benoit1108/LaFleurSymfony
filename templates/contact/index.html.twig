@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block body %}
+	<h1>Contact</h1>
+
+	{% for message in app.flashes('okContact') %}
+
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{ message }}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{% endfor %}
+
+	{{ form_start(formContact) }}
+	{{ form_widget(formContact) }}
+	<button class="btn btn-success">{{ button_label|default('Envoyer le message') }}</button>
+	{{ form_end(formContact) }}
+
+{% endblock %}

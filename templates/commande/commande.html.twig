@@ -29,7 +29,7 @@
 		<tbody>
 			{% for uneCommande in commande %}
 				<tr>
-					<td><a type='button' class='btn btn-secondary' href="#">Voir</a></td>
+					<td><a type='button' class='btn btn-secondary' href="{{ path('show_commande', {'id': uneCommande.id}) }}">Voir</a></td>
 					<td>{{uneCommande.id}}</td>
 					<td>{{uneCommande.date ? uneCommande.date|date('Y-m-d') : ''}}</td>
                     <td>

@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact
+{% endblock %}
+
+{% block body %}
+	{% for message in app.flashes('profil') %}
+
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+			{{message}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+	{% endfor %}
+
+	<table style="width:900px; height:300px; margin-top:50px" class="table table-bordered table-dark">
+		<tr>
+			<td rowspan="4">
+				<img width="500px" src="{{utilisateur.displayPhoto}}">
+			</td>
+			<td>Nom</td>
+			<td>{{utilisateur.nom}}</td>
+		</tr>
+		<tr>
+			<td>Prénom</td>
+			<td>{{utilisateur.prenom}}</td>
+		</tr>
+		<tr>
+			<td>Login (email)</td>
+			<td>{{utilisateur.email}}</td>
+		</tr>
+		<tr>
+			<td>Role</td>
+			<td>
+				{% for unRole in utilisateur.roles %}
+					{% if unRole == "ROLE_USER"%}
+						Utilisateur
+					{% elseif unRole == "ROLE_EDITOR"%}
+						Editeur
+					{% else %}
+						Administrateur
+					{% endif %}
+				{% endfor %}
+			</td>
+		</tr>
+	</table>
+
+
+	<a class="btn btn-primary" href="{{path('profil_edit_infos', {'id': utilisateur.id})}}">Modifier mes infos</a>
+	<a class="btn btn-primary" href="{{path('profil_edit_mdp', {'id': utilisateur.id})}}">Modifier mot de passe</a>
+	<a class="btn btn-primary" href="{{path('profil_edit_photo', {'id': utilisateur.id})}}">Modifier la photo</a>
+	<a class="btn btn-primary" href="{{path('commande')}}">Consulter mes commandes</a>
+
+
+{% endblock %}

@@ -46,6 +46,22 @@ class Utilisateur implements UserInterface
      */
     private $prenom;
 
+    /**
+     * @ORM\Column(type="blob", nullable=true)
+     */
+    private $photo;
+
+    private $rawPhoto;
+
+    public function displayPhoto()
+    {
+        if(null === $this->rawPhoto) {
+            $this->rawPhoto = "data:image/jpeg;charset=utf8;base64," . base64_encode(stream_get_contents($this->getPhoto()));
+        }
+
+        return $this->rawPhoto;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -144,6 +160,18 @@ class Utilisateur implements UserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    public function setPhoto($photo): self
+    {
+        $this->photo = $photo;
 
         return $this;
     }

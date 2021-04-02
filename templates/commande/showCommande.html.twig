@@ -4,9 +4,9 @@
 {% endblock %}
 
 {% block body %}
-
-	<h2 style="margin-top: 50px; margin-bottom: 20px">Détail de la commande</h2>
-
+	<h2 style="margin-top: 50px; margin-bottom: 20px">Commande n°{{commande.id}}
+		en date du {{commande.date ? commande.date|date('Y-m-d') : ''}}
+		</h2>
 	<table class="table" style="margin-top: 15px;">
 		<thead class="thead-dark">
 			<tr>
@@ -19,23 +19,43 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for unProduit in lesfleurs %}
-
+		{% for lc in  commande.ligneCommandeFleurs %}
 				<tr>
-					<td><img class='card-img-top' src="{{ asset('/Images/Fleurs/' ~ unProduit.fleur.photo) }}" alt=''></td>
-					<td>{{unProduit.fleur.id}}</td>
-					<td>{{unProduit.fleur.designation}}</td>
-					<td>{{unProduit.fleur.prix}}
+					<td><img style="height:140px; width:200px" class='card-img-top' src="{{ asset('images/Fleurs/' ~ lc.uneFleur.photo) }}" alt=''></td>
+					<td>{{lc.uneFLeur.id}}</td>
+					<td>{{lc.uneFleur.designation}}</td>
+					<td>{{lc.uneFleur.prix}}
 						€</td>
-					<td>{{unProduit.qte}}</td>
-					{% set montant =  unProduit.fleur.prix * unProduit.qte  %}
-
-					<td>{{ montant }}€</td>
+						<td>{{lc.quantite}}</td>
+					{% set montant = lc.uneFleur.prix * lc.quantite  %}
+					<td>{{ montant }}</td>
 				</tr>
-			{% endfor %}
+		{% endfor %}
 		</tbody>
+		<tfoot>
+
+				{% set montantTot = 0 %}
+
+				{% for lc in  commande.ligneCommandeFleurs %}
+
+
+					{% set montant = ( lc.uneFleur.prix * lc.quantite ) %}
+
+					{% set montantTot = montantTot + montant %}
+				{% endfor %}
+				<tr>
+					<td>Total de la commande :</td>
+					<td></td>
+					<td></td>
+					<td>{{ montantTot }}
+						€</td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+			</tfoot>
 	</table>
 
-	<a type='button' class='btn btn-primary' href="{{ path('commande_add') }}">Reour à la liste de vos commandes</a>
+	<a type='button' class='btn btn-primary' href="{{path('commande')}}">Reour à la liste de vos commandes</a>
 
 {% endblock %}

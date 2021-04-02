@@ -1,0 +1,30 @@
+{# templates/emails/mail.html.twig #}
+Bonjour
+{{ contact.nom }},
+<br/>
+Votre message a bien été transmis à la société LaFleur.
+<br/>
+Nous vous répondrons le plus rapidement possible.
+<br/>
+Cordialement
+<br/>
+<hr>
+Date :
+{{ contact.date |date('d-m-Y')}}<br>
+
+Objet :
+{{ contact.objet }}<br>
+
+Type :
+{{ contact.type }}<br>
+
+Profession :
+{{ contact.profession }}<br>
+
+Message :
+{{ contact.demande }}<br>
+
+
+
+{# Makes an absolute URL to the /images/logo.png file #}
+{# img src="{{ absolute_url(asset('images/logo.png')) }}"> #}
